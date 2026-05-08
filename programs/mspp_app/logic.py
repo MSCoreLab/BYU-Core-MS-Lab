@@ -189,9 +189,9 @@ class DataProcessor:
         # Separate files into the two experimental condition groups
         e25_exp, e100_exp = [], []
         for f in sample_files:
-            if re.search(r"E[-_]?25|Y[-_]?150|HYE[-_]?[1A]", f.upper()):
+            if re.search(r"E[-_]?25|Y[-_]?150|(?:HYE|HEY)[-_]?[1A]", f.upper()):
                 e25_exp.append(f)
-            elif re.search(r"E[-_]?100|Y[-_]?75|HYE[-_]?[2B]", f.upper()):
+            elif re.search(r"E[-_]?100|Y[-_]?75|(?:HYE|HEY)[-_]?[2B]", f.upper()):
                 e100_exp.append(f)
 
         strict_pairs_dict, singlets = {}, []
@@ -199,7 +199,7 @@ class DataProcessor:
         def get_suffix(name):
             """Extracts the unique identifier/suffix after the condition (e.g., E25_Rep1 -> Rep1)."""
             m = re.search(
-                r"(?:E[-_]?(?:25|100)|Y[-_]?(?:150|75)|HYE[-_]?[12AB])[-_](.*)", name, re.IGNORECASE
+                r"(?:E[-_]?(?:25|100)|Y[-_]?(?:150|75)|(?:HYE|HEY)[-_]?[12AB])[-_](.*)", name, re.IGNORECASE
             )
             return m.group(1) if m else None
 
