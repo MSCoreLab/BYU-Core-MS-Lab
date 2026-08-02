@@ -1,26 +1,10 @@
 # --- THE SAFETY SHIELD (Global Ignore) ---
 # Ignore these file types EVERYWHERE in the vault
-*.pdf
-*.zip
-*.pptx
-*.ppt
-*.docx
-*.doc
-*.xlsx
-*.xls
-*.xltx
-*.xlt
-*.mov
-*.mp4
-*.mp3
-*.fcs
 *.exe
 *.dll
 *.msi
 *.so
 *.log
-*.tsv
-*.heic
 
 # Python
 __pycache__/
