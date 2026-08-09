@@ -3,17 +3,14 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "byu-core-ms-lab"
-version = "0.2.0"
+name = "ms-proteomics-tools"
+version = "0.5.0"
 description = "Mass Spectrometry QC and analysis tools for BYU Fritz B. Burns Cancer Research Center MS Core Facility"
 readme = "README.md"
 requires-python = ">=3.14"
-license = {text = "GPLv3"}
+license = {text = "MIT"}
 authors = [
-    {name = "BYU Fritz B. Burns Cancer Research Center MS Core Facility"},
-]
-maintainers = [
-    {name = "BYU MS Core Lab", email = "mscorelab@byu.edu"},
+    {name = "Jonathan To", email = "toshuyi@outlook.com"},
 ]
 keywords = [
     "mass-spectrometry",
@@ -27,7 +24,7 @@ keywords = [
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Bioinformatics",
     "Topic :: Scientific/Engineering :: Chemistry",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -60,7 +57,8 @@ dependencies = [
     "ipywidgets>=8.1.8,<9", 
     "gunicorn>=26.0.0,<27", 
     "waitress>=3.0.2,<4", 
-    "pywebview>=6.2.1,<7", "customtkinter>=6.0.0,<7",
+    "pywebview>=6.2.1,<7", 
+    "customtkinter>=6.0.0,<7",
 ]
 
 [project.optional-dependencies]
@@ -88,15 +86,14 @@ web = [
 
 # Complete development environment (all extras)
 all = [
-    "byu-core-ms-lab[dev,jupyter,web]",
+    "ms-proteomics-tools[dev,jupyter,web]",
 ]
 
 [project.urls]
-Homepage = "https://github.com/MSCoreLab/BYU-Core-MS-Lab"
-Repository = "https://github.com/MSCoreLab/BYU-Core-MS-Lab"
-Issues = "https://github.com/MSCoreLab/BYU-Core-MS-Lab/issues"
-Changelog = "https://github.com/MSCoreLab/BYU-Core-MS-Lab/blob/main/CHANGELOG.md"
-Documentation = "https://github.com/MSCoreLab/BYU-Core-MS-Lab#readme"
+Homepage = "https://github.com/jonathanto99/ms-proteomics-tools"
+Repository = "https://github.com/jonathanto99/ms-proteomics-tools"
+Issues = "https://github.com/jonathanto99/ms-proteomics-tools/issues"
+Documentation = "https://github.com/jonathanto99/ms-proteomics-tools/readme.md"
 
 [project.scripts]
 # Command-line entry points
@@ -142,28 +139,6 @@ quote-style = "double"
 indent-style = "space"
 docstring-code-format = true
 
-# Black configuration (backup formatter)
-[tool.black]
-line-length = 100
-target-version = ["py310", "py311", "py312"]
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  # directories
-  \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | node_modules
-)/
-'''
-
 # Pytest configuration
 [tool.pytest.ini_options]
 minversion = "8.0"
@@ -177,21 +152,6 @@ addopts = [
     "--cov-report=term-missing",
     "--cov-report=html",
 ]
-
-# MyPy configuration (type checking)
-[tool.mypy]
-python_version = ">3.11"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = false  # Gradually enable
-disallow_incomplete_defs = false
-check_untyped_defs = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_no_return = true
-strict_equality = true
-ignore_missing_imports = true
 
 # Coverage configuration
 [tool.coverage.run]
@@ -221,7 +181,7 @@ platforms = ["win-64"]
 
 [tool.pixi.pypi-dependencies]
 pydocstyle = ">=6.3.0, <7"
-byu-core-ms-lab = { path = ".", editable = true }
+ms-proteomics-tools = { path = ".", editable = true }
 
 [tool.pixi.environments]
 default = { solve-group = "default" }
