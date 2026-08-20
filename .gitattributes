@@ -49,10 +49,7 @@
 *.exe binary
 
 # Pixi SCM syntax highlighting & preventing 3-way merges
-pixi.lock merge=binary 
-linguist-language=YAML 
-linguist-generated=true -diff 
-linguist-detectable=false
+pixi.lock merge=binary linguist-generated=true -diff
 
 # Categorize Jupyter notebooks specifically as documentation
 *.ipynb linguist-documentation=true
