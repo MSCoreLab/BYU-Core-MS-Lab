@@ -67,12 +67,6 @@ jupyter = [
     "ipywidgets>=8.1.8,<9",
 ]
 
-# Web deployment
-web = [
-    "gunicorn>=26.0.0,<27",
-    "waitress>=3.0.2,<4",
-]
-
 # All extras
 all = ["ms-proteomics-tools[dev,jupyter,web]"]
 
@@ -166,13 +160,6 @@ platforms = ["win-64"]
 
 [tool.pixi.pypi-dependencies]
 ms-proteomics-tools = { path = ".", editable = true }
-
-[tool.pixi.environments]
-default = { solve-group = "default" }
-dev = { features = ["dev"], solve-group = "default" }
-jupyter = { features = ["jupyter"], solve-group = "default" }
-web = { features = ["web"], solve-group = "default" }
-all = { features = ["dev", "jupyter", "web"], solve-group = "default" }
 
 [tool.pixi.dependencies]
 python = ">=3.14,<3.15"
