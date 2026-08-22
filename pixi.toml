@@ -1,199 +1,53 @@
-[build-system]
-requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "ms-proteomics-tools"
-version = "0.1.0"
-description = "Mass Spectrometry QC and analysis tools for BYU Fritz B. Burns Cancer Research Center MS Core Facility"
-readme = "README.md"
-requires-python = ">=3.14"
-license = {text = "MIT"}
-authors = [
-    {name = "Jonathan To", email = "toshuyi@outlook.com"},
-]
-keywords = [
-    "mass-spectrometry",
-    "proteomics",
-    "data-analysis",
-    "visualization",
-    "quality-control",
-    "DIA-NN",
-    "bottom-up-proteomics",
-]
-classifiers = [
-    "Intended Audience :: Science/Research",
-    "Topic :: Scientific/Engineering :: Bioinformatics",
-    "Topic :: Scientific/Engineering :: Chemistry",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
-]
-
-# Core runtime dependencies
-dependencies = [
-    "numpy>=2.5.1,<3",
-    "pandas>=3.0.5,<4",
-    "matplotlib>=3.11.1,<4",
-    "seaborn>=0.13.2,<0.14",
-    "flask>=3.1.3,<4",
-    "flask-cors>=6.0.5,<7",
-    "pillow>=12.3.0,<13",
-    "pyteomics>=5.0.1,<6",
-    "lxml",
-    "jupyter>=1.1.1,<2",
-    "ipykernel>=7.3.0,<8",
-    "ipywidgets>=8.1.8,<9",
-    "gunicorn>=26.0.0,<27",
-    "waitress>=3.0.2,<4",
-    "pywebview>=6.2.1,<7",
-    "customtkinter>=6.0.0,<7",
-]
-
-[project.optional-dependencies]
-# Development & linting
-dev = [
-    "ruff>=0.16.2,<0.17",
-    "pytest>=9.1.1,<10",
-    "pytest-cov>=7.1.0,<8",
-    "mypy>=2.3.0,<3",
-    "pydocstyle>=6.3.0,<7",
-]
-
-# Jupyter notebook support
-jupyter = [
-    "jupyter>=1.1.1,<2",
-    "ipykernel>=7.3.0,<8",
-    "ipywidgets>=8.1.8,<9",
-]
-
-# All extras
-all = ["ms-proteomics-tools[dev,jupyter,web]"]
-
-[project.urls]
-Homepage = "https://github.com/jonathanto99/ms-proteomics-tools"
-Repository = "https://github.com/jonathanto99/ms-proteomics-tools"
-Issues = "https://github.com/jonathanto99/ms-proteomics-tools/issues"
-Documentation = "https://github.com/jonathanto99/ms-proteomics-tools/readme.md"
-
-[project.scripts]
-mspp-web = "programs.mspp_web.launch_app:main"
-filter-fasta = "programs.python.filter_fasta_gui:main"
-
-[tool.setuptools]
-packages = ["programs"]
-
-[tool.setuptools.package-data]
-"*" = ["*.md", "*.txt", "*.yml", "*.yaml", "*.json", "*.tsv", "*.css", "*.html", "*.js", "*.tsx", "*.ts"]
-
-# Ruff: formatting & linting
-[tool.ruff]
-line-length = 100
-target-version = "py314"
-
-[tool.ruff.lint]
-select = [
-    "E",      # pycodestyle errors
-    "W",      # pycodestyle warnings
-    "F",      # pyflakes
-    "I",      # isort
-    "B",      # flake8-bugbear
-    "C4",     # flake8-comprehensions
-    "UP",     # pyupgrade
-    "ARG",    # flake8-unused-arguments
-    "SIM",    # flake8-simplify
-]
-ignore = [
-    "E501",   # line too long (handled by formatter)
-    "B008",   # do not perform function calls in argument defaults
-    "W191",   # indentation contains tabs
-]
-
-[tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["F401"]
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-docstring-code-format = true
-
-# Pytest configuration
-[tool.pytest.ini_options]
-minversion = "9.0"
-testpaths = ["tests"]
-python_files = "test_*.py"
-python_classes = "Test*"
-python_functions = "test_*"
-addopts = [
-    "--verbose",
-    "--cov=programs",
-    "--cov-report=term-missing",
-    "--cov-report=html",
-]
-
-# Coverage configuration
-[tool.coverage.run]
-source = ["programs"]
-omit = [
-    "*/tests/*",
-    "*/__pycache__/*",
-    "*/node_modules/*",
-    "*/frontend/*",
-]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-    "if TYPE_CHECKING:",
-    "class .*\\bProtocol\\):",
-    "@(abc\\.)?abstractmethod",
-]
-
-# Pixi workspace configuration
-[tool.pixi.workspace]
+[workspace]
 channels = ["conda-forge"]
 platforms = ["win-64"]
 
-[tool.pixi.pypi-dependencies]
+[pypi-dependencies]
 ms-proteomics-tools = { path = ".", editable = true }
+scanpy = "*"
+pywebview = "*"
+customtkinter = "*"
 
-[tool.pixi.dependencies]
+[environments.default.dependencies]
 python = ">=3.14,<3.15"
-pip = ">=26.2.1,<27"
+# Core scientific stack
 numpy = ">=2.5.1,<3"
 pandas = ">=3.0.5,<4"
 matplotlib = ">=3.11.1,<4"
 seaborn = ">=0.13.2,<0.14"
-flask = ">=3.1.3,<4"
-flask-cors = ">=6.0.5,<7"
-pillow = ">=12.3.0,<13"
-pyteomics = ">=5.0.1,<6"
-lxml = "*"
+
+# Jupyter
 jupyter = ">=1.1.1,<2"
 ipykernel = ">=7.3.0,<8"
 ipywidgets = ">=8.1.8,<9"
-gunicorn = ">=26.0.0,<27"
-waitress = ">=3.0.2,<4"
-pywebview = ">=6.2.1,<7"
-customtkinter = ">=6.0.0,<7"
+
+# Project and utilities
+pyteomics = ">=5.0.1,<6"
+
+# Linting / dev
 ruff = ">=0.16.2,<0.17"
 pytest = ">=9.1.1,<10"
 pytest-cov = ">=7.1.0,<8"
-mypy = ">=2.3.0,<3"
-pydocstyle = ">=6.3.0,<7"
-polars = ">=1.43.2,<2"
-plotnine = ">=0.15.8,<0.16"
-pyinstaller = ">=6.21.0,<7"
-quarto = ">=1.9.38,<2"
-nicegui = ">=3.15.0,<4"
-r-base = ">=4.6.1,<4.7"
 
-[tool.pixi.tasks]
-start = { cmd = "positron .", env = { PYTHONPATH = ".pixi/envs/default/Lib" } }
-lint = { cmd = "ruff check --fix . && ruff format ." }
-test = { cmd = "pytest tests/" }
-type-check = { cmd = "mypy programs/" }
+# Optional / tooling
+quarto = ">=1.9.38,<2"
+pyinstaller = ">=6.21.0,<7"
+
+# Dataframe alternative (optional)
+polars = ">=1.43.2,<2"
+
+# Include scanpy (user-requested analysis package)
+scanpy = "*"
+expat = ">=2.8.1,<3"
+
+[tasks.start]
+cmd = "positron ."
+
+[tasks.lint]
+cmd = "ruff check --fix . && ruff format ."
+
+[tasks.test]
+cmd = "pytest tests/"
+
+[tasks.type-check]
+cmd = "mypy programs/"
